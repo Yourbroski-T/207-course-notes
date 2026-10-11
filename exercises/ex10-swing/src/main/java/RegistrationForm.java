@@ -1,10 +1,5 @@
 import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  * Exercise (Chapter 4: GUIs with Swing) — matching a layout.
@@ -32,13 +27,30 @@ public class RegistrationForm {
    * @return the form's root panel
    */
   public static JPanel buildForm() {
+
     JPanel panel = new JPanel(new FlowLayout());
-    panel.add(new JLabel("First name:"));
-    panel.add(new JTextField(12));
-    panel.add(new JLabel("Last name:"));
-    panel.add(new JTextField(12));
-    panel.add(new JButton("Submit"));
-    panel.add(new JButton("Cancel"));
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+    JPanel First = new JPanel();
+    JTextField firstText = new JTextField(10);
+    First.add(new JLabel("First Name:"));
+    First.add(firstText);
+
+    JPanel Last = new JPanel();
+    JTextField lastText = new JTextField(10);
+    Last.add(new JLabel("Last Name:"));
+    Last.add(lastText);
+
+    JPanel buttonPanel = new JPanel(new FlowLayout());
+    JButton submit = new JButton("Submit");
+    buttonPanel.add(submit);
+    JButton cancel = new JButton("Cancel");
+    buttonPanel.add(cancel);
+
+    panel.add(First);
+    panel.add(Last);
+    panel.add(buttonPanel);
+
     return panel;
   }
 
@@ -47,6 +59,7 @@ public class RegistrationForm {
     SwingUtilities.invokeLater(
         () -> {
           JFrame frame = new JFrame("Registration");
+          frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           frame.setContentPane(buildForm());
           frame.pack();
